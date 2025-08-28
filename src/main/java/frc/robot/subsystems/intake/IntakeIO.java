@@ -1,4 +1,4 @@
-package frc.robot.subsystems.input;
+package frc.robot.subsystems.intake;
 
 import frc.lib.NinjasLib.controllers.Controller;
 import org.littletonrobotics.junction.AutoLog;

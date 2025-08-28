@@ -3,12 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
-import frc.robot.subsystems.input.Intake;
-import frc.robot.subsystems.input.IntakeIO;
-import frc.robot.subsystems.input.IntakeIOController;
-import frc.robot.subsystems.outtake.Outtake;
-import frc.robot.subsystems.outtake.OuttakeIO;
-import frc.robot.subsystems.outtake.OuttakeIOController;
+import frc.robot.subsystems.intake.*;
+import frc.robot.subsystems.outtake.*;
+import frc.robot.subsystems.tank.*;
 import org.littletonrobotics.junction.Logger;
 
 public class RobotContainer {
@@ -22,11 +19,15 @@ public class RobotContainer {
             case REAL, SIM:
                 Intake.createInstance(new Intake(false, new IntakeIOController()));
                 Outtake.createInstance(new Outtake(false, new OuttakeIOController()));
+                TankLeft.createInstance(new TankLeft(false, new TankLeftIOController()));
+                TankRight.createInstance(new TankRight(false, new TankRightIOController()));
                 break;
 
             case REPLAY:
                 Intake.createInstance(new Intake(false, new IntakeIO() {}));
                 Outtake.createInstance(new Outtake(false, new OuttakeIO() {}));
+                TankLeft.createInstance(new TankLeft(false, new TankLeftIO() {}));
+                TankRight.createInstance(new TankRight(false, new TankRightIO() {}));
                 break;
         }
 
