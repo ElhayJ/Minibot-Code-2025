@@ -9,8 +9,8 @@ public class TankIOController implements TankIO {
 
     @Override
     public void setup() {
-        left = Controller.createController(Controller.ControllerType.TalonFX, Constants.kTankLeftControllerConstants);
-        right = Controller.createController(Controller.ControllerType.TalonFX, Constants.kTankRightControllerConstants);
+        left = Controller.createController(Controller.ControllerType.SparkMax, Constants.kTankLeftControllerConstants);
+        right = Controller.createController(Controller.ControllerType.SparkMax, Constants.kTankRightControllerConstants);
     }
 
     @Override
