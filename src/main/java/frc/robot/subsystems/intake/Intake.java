@@ -1,5 +1,7 @@
 package frc.robot.subsystems.intake;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
@@ -30,6 +32,14 @@ public class Intake extends SubsystemBase {
             return io;
         else
             return new IntakeIO() {};
+    }
+
+    public Command setPercent(double percent){
+        if (!enabled)
+            return Commands.none();
+        return Commands.runOnce(() -> {
+            io.setPercent(percent);
+        });
     }
 
     @Override
