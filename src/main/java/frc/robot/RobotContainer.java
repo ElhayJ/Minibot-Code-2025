@@ -19,15 +19,13 @@ public class RobotContainer {
             case REAL, SIM:
                 Intake.createInstance(new Intake(false, new IntakeIOController()));
                 Outtake.createInstance(new Outtake(false, new OuttakeIOController()));
-                TankLeft.createInstance(new TankLeft(false, new TankLeftIOController()));
-                TankRight.createInstance(new TankRight(false, new TankRightIOController()));
+                Tank.createInstance(new Tank(false, new TankIOController()));
                 break;
 
             case REPLAY:
                 Intake.createInstance(new Intake(false, new IntakeIO() {}));
                 Outtake.createInstance(new Outtake(false, new OuttakeIO() {}));
-                TankLeft.createInstance(new TankLeft(false, new TankLeftIO() {}));
-                TankRight.createInstance(new TankRight(false, new TankRightIO() {}));
+                Tank.createInstance(new Tank(false, new TankIO() {}));
                 break;
         }
 

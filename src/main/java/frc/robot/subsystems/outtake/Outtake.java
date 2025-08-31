@@ -40,6 +40,6 @@ public class Outtake extends SubsystemBase {
         io.periodic();
 
         io.updateInputs(inputs);
-        Logger.processInputs("Outtake", inputs);
+        Logger.processInputs("Tank", inputs);
     }
 }

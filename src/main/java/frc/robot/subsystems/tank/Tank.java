@@ -3,21 +3,21 @@ package frc.robot.subsystems.tank;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
-public class TankRight extends SubsystemBase {
-    private TankRightIO io;
-    private final TankRightIOInputsAutoLogged inputs = new TankRightIOInputsAutoLogged();
-    private static TankRight instance;
+public class Tank extends SubsystemBase {
+    private TankIO io;
+    private final TankIOInputsAutoLogged inputs = new TankIOInputsAutoLogged();
+    private static Tank instance;
     private boolean enabled;
 
-    public static TankRight getInstance() {
+    public static Tank getInstance() {
         return instance;
     }
 
-    public static void createInstance(TankRight tankRight) {
-        instance = tankRight;
+    public static void createInstance(Tank tank) {
+        instance = tank;
     }
 
-    public TankRight(boolean enabled, TankRightIO io) {
+    public Tank(boolean enabled, TankIO io) {
         if (enabled) {
             this.io = io;
             io.setup();
@@ -25,11 +25,11 @@ public class TankRight extends SubsystemBase {
         this.enabled = enabled;
     }
 
-    public TankRightIO getIO() {
+    public TankIO getIO() {
         if (enabled)
             return io;
         else
-            return new TankRightIO() {};
+            return new TankIO() {};
     }
 
     @Override
@@ -40,6 +40,6 @@ public class TankRight extends SubsystemBase {
         io.periodic();
 
         io.updateInputs(inputs);
-        Logger.processInputs("TankRight", inputs);
+        Logger.processInputs("Tank", inputs);
     }
 }

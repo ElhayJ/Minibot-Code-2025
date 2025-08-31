@@ -3,18 +3,18 @@ package frc.robot.subsystems.tank;
 import frc.lib.NinjasLib.controllers.Controller;
 import org.littletonrobotics.junction.AutoLog;
 
-public interface TankRightIO {
+public interface TankIO {
     @AutoLog
-    class TankRightIOInputs extends Controller.ControllerIOInputs {
+    class TankIOInputs extends Controller.ControllerIOInputs {
     }
 
     default void setup() {
     }
 
-    default void setPercent(double percent) {
+    default void setPercent(double percentRight, double precentLeft) {
     }
 
-    default void updateInputs(TankRightIOInputsAutoLogged inputs) {
+    default void updateInputs(TankIOInputsAutoLogged inputs) {
     }
 
     default void periodic() {
