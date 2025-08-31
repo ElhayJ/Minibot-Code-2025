@@ -36,10 +36,18 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-
+        driverController.cross().toggleOnTrue(
+                Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.INTAKE);})
+        );
+        driverController.cross().toggleOnFalse(
+                Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.POWER_CELL_IN_SYSTEM);})
+        );
+        driverController.L2().onTrue(Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.PREPARE_SHOOT);}));
+        driverController.circle().onTrue(Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.CLOSE);}));
     }
 
     public void periodic() {
+        Tank.getInstance().setPercent(driverController.getLeftY() + driverController.getRightX(), driverController.getLeftY() - driverController.getRightX())
         Logger.recordOutput("Output1", 5);
     }
 

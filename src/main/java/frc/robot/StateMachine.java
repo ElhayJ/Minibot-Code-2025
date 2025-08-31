@@ -27,8 +27,7 @@ public class StateMachine extends StateMachineBase<States> {
             ).contains(wantedState);
 
             case POWER_CELL_IN_SYSTEM -> Set.of(
-                    States.PREPARE_SHOOT,
-                    States.CLOSE
+                    States.PREPARE_SHOOT
             ).contains(wantedState);
 
             case PREPARE_SHOOT -> Set.of(
@@ -57,7 +56,6 @@ public class StateMachine extends StateMachineBase<States> {
         addCommand(States.CLOSE, Commands.sequence(
                 intake.setPercent(0),
                 outtake.setPercent(0),
-                tank.setPercent(0, 0),
                 Commands.runOnce(() -> changeRobotState(States.IDLE))
         ));
         //endregion
