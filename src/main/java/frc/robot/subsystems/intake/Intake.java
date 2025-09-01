@@ -8,16 +8,7 @@ import org.littletonrobotics.junction.Logger;
 public class Intake extends SubsystemBase {
     private IntakeIO io;
     private final InputIOInputsAutoLogged inputs = new InputIOInputsAutoLogged();
-    private static Intake instance;
     private boolean enabled;
-
-    public static Intake getInstance() {
-        return instance;
-    }
-
-    public static void createInstance(Intake intake) {
-        instance = intake;
-    }
 
     public Intake(boolean enabled, IntakeIO io) {
         if (enabled) {

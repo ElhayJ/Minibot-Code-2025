@@ -3,52 +3,72 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
-import frc.robot.subsystems.intake.*;
-import frc.robot.subsystems.outtake.*;
-import frc.robot.subsystems.tank.*;
-import org.littletonrobotics.junction.Logger;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.intake.IntakeIO;
+import frc.robot.subsystems.intake.IntakeIOController;
+import frc.robot.subsystems.outtake.Outtake;
+import frc.robot.subsystems.outtake.OuttakeIO;
+import frc.robot.subsystems.outtake.OuttakeIOController;
+import frc.robot.subsystems.tank.Tank;
+import frc.robot.subsystems.tank.TankIO;
+import frc.robot.subsystems.tank.TankIOController;
 
 public class RobotContainer {
-    private CommandPS5Controller driverController;
-    private CommandPS5Controller operatorController;
+    private CommandPS5Controller controller;
+    private static Tank tank;
+    private static Intake intake;
+    private static Outtake outtake;
 
     public RobotContainer() {
         RobotState.setInstance(new RobotState());
 
         switch (Constants.kCurrentMode) {
             case REAL, SIM:
-                Intake.createInstance(new Intake(false, new IntakeIOController()));
-                Outtake.createInstance(new Outtake(false, new OuttakeIOController()));
-                Tank.createInstance(new Tank(false, new TankIOController()));
+                intake = new Intake(false, new IntakeIOController());
+                outtake = new Outtake(false, new OuttakeIOController());
+                tank = new Tank(true, new TankIOController());
                 break;
 
             case REPLAY:
-                Intake.createInstance(new Intake(false, new IntakeIO() {}));
-                Outtake.createInstance(new Outtake(false, new OuttakeIO() {}));
-                Tank.createInstance(new Tank(false, new TankIO() {}));
+                intake = new Intake(false, new IntakeIO() {
+                });
+                outtake = new Outtake(false, new OuttakeIO() {
+                });
+                tank = new Tank(false, new TankIO() {
+                });
                 break;
         }
 
-        driverController = new CommandPS5Controller(Constants.kDriverControllerPort);
-        operatorController = new CommandPS5Controller(Constants.kOperatorControllerPort);
+        controller = new CommandPS5Controller(Constants.kControllerPort);
 
         configureBindings();
     }
 
+    public static Intake getIntake() {
+        return intake;
+    }
+
+    public static Outtake getOuttake() {
+        return outtake;
+    }
+
+    public static Tank getTank() {
+        return tank;
+    }
+
     private void configureBindings() {
-        driverController.cross().toggleOnTrue(
-                Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.INTAKE);})
+        controller.cross().toggleOnTrue(
+                Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.INTAKE))
         );
-        driverController.cross().toggleOnFalse(
-                Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.POWER_CELL_IN_SYSTEM);})
+        controller.cross().toggleOnFalse(
+                Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.POWER_CELL_IN_SYSTEM))
         );
-        driverController.L2().onTrue(Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.PREPARE_SHOOT);}));
-        driverController.circle().onTrue(Commands.runOnce(() -> {StateMachine.getInstance().changeRobotState(States.CLOSE);}));
+        controller.L2().onTrue(Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.PREPARE_SHOOT)));
+        controller.circle().onTrue(Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.CLOSE)));
     }
 
     public void periodic() {
-        Tank.getInstance().setPercent(driverController.getLeftY() + driverController.getRightX(), driverController.getLeftY() - driverController.getRightX())
-        Logger.recordOutput("Output1", 5);
+
     }
 
     public Command getAutonomousCommand() {

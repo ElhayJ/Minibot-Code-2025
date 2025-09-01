@@ -6,12 +6,19 @@ import org.littletonrobotics.junction.AutoLog;
 public interface TankIO {
     @AutoLog
     class TankIOInputs extends Controller.ControllerIOInputs {
+        public double LeftOutput;
+        public double RightOutput;
     }
 
     default void setup() {
     }
 
-    default void setPercent(double percentRight, double precentLeft) {
+    default Controller getLeft() {
+        return null;
+    }
+
+    default Controller getRight() {
+        return null;
     }
 
     default void updateInputs(TankIOInputsAutoLogged inputs) {

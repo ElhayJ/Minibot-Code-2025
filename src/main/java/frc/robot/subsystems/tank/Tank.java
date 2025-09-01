@@ -8,16 +8,7 @@ import org.littletonrobotics.junction.Logger;
 public class Tank extends SubsystemBase {
     private TankIO io;
     private final TankIOInputsAutoLogged inputs = new TankIOInputsAutoLogged();
-    private static Tank instance;
     private boolean enabled;
-
-    public static Tank getInstance() {
-        return instance;
-    }
-
-    public static void createInstance(Tank tank) {
-        instance = tank;
-    }
 
     public Tank(boolean enabled, TankIO io) {
         if (enabled) {
@@ -27,18 +18,13 @@ public class Tank extends SubsystemBase {
         this.enabled = enabled;
     }
 
-    public TankIO getIO() {
-        if (enabled)
-            return io;
-        else
-            return new TankIO() {};
-    }
-
-    public Command setPercent(double percentRight, double percentLeft){
+    public Command setPercent(double left, double right) {
         if (!enabled)
             return Commands.none();
+
         return Commands.runOnce(() -> {
-            io.setPercent(percentRight, percentLeft);
+            io.getLeft().setPercent(left);
+            io.getRight().setPercent(right);
         });
     }
 

@@ -14,15 +14,19 @@ public class TankIOController implements TankIO {
     }
 
     @Override
-    public void setPercent(double percentRight, double percentLeft) {
-        right.setPercent(percentRight);
-        left.setPercent(percentLeft);
+    public Controller getLeft() {
+        return left;
+    }
+
+    @Override
+    public Controller getRight() {
+        return right;
     }
 
     @Override
     public void updateInputs(TankIOInputsAutoLogged inputs) {
-        right.updateInputs(inputs);
-        left.updateInputs(inputs);
+        inputs.LeftOutput = left.getOutput();
+        inputs.RightOutput = right.getOutput();
     }
 
     @Override

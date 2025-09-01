@@ -44,9 +44,9 @@ public class StateMachine extends StateMachineBase<States> {
 
     @Override
     protected void setCommandMap() {
-        Intake intake = Intake.getInstance();
-        Outtake outtake = Outtake.getInstance();
-        Tank tank = Tank.getInstance();
+        Intake intake = RobotContainer.getIntake();
+        Outtake outtake = RobotContainer.getOuttake();
+        Tank tank = RobotContainer.getTank();
 
         //region IDLE
         addCommand(States.IDLE, Commands.none());
