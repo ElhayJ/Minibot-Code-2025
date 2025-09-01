@@ -8,7 +8,7 @@ public class IntakeIOController implements IntakeIO {
 
     @Override
     public void setup() {
-        controller = Controller.createController(Controller.ControllerType.TalonSRX, Constants.kIntakeControllerConstants);
+        controller = Controller.createController(Controller.ControllerType.VictorSPX, Constants.kIntakeControllerConstants);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class IntakeIOController implements IntakeIO {
 
     @Override
     public void updateInputs(InputIOInputsAutoLogged inputs) {
-        controller.updateInputs(inputs);
+        inputs.Output = controller.getOutput();
     }
 
     @Override

@@ -74,7 +74,7 @@ public class Constants {
     public static final ControllerConstants kOuttakeControllerConstants = new ControllerConstants();
     static {
         /* Base */
-        kOuttakeControllerConstants.real.main.id = 20;
+        kOuttakeControllerConstants.real.main.id = 30;
         kOuttakeControllerConstants.real.main.inverted = false;
         kOuttakeControllerConstants.real.currentLimit = 60;
         kOuttakeControllerConstants.real.isBrakeMode = false;
@@ -87,8 +87,8 @@ public class Constants {
     public static final ControllerConstants kTankLeftControllerConstants = new ControllerConstants();
     static {
         /* Base */
-        kTankLeftControllerConstants.real.main.id = 20;
-        kTankLeftControllerConstants.real.main.inverted = false;
+        kTankLeftControllerConstants.real.main.id = 11;
+        kTankLeftControllerConstants.real.main.inverted = true;
         kTankLeftControllerConstants.real.currentLimit = 60;
         kTankLeftControllerConstants.real.isBrakeMode = true;
 
@@ -99,8 +99,8 @@ public class Constants {
     public static final ControllerConstants kTankRightControllerConstants = new ControllerConstants();
     static {
         /* Base */
-        kTankRightControllerConstants.real.main.id = 20;
-        kTankRightControllerConstants.real.main.inverted = true;
+        kTankRightControllerConstants.real.main.id = 10;
+        kTankRightControllerConstants.real.main.inverted = false;
         kTankRightControllerConstants.real.currentLimit = 60;
         kTankRightControllerConstants.real.isBrakeMode = true;
 

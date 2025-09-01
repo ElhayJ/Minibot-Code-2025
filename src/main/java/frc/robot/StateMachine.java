@@ -61,7 +61,7 @@ public class StateMachine extends StateMachineBase<States> {
         //endregion
 
         //region INTAKE
-        addCommand(States.INTAKE, intake.setPercent(1));
+        addCommand(States.INTAKE, intake.setPercent(-0.2));
         //endregion
 
         //region POWER_CELL_IN_SYSTEM

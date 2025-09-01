@@ -1,7 +1,5 @@
 package frc.robot.subsystems.tank;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
@@ -18,14 +16,12 @@ public class Tank extends SubsystemBase {
         this.enabled = enabled;
     }
 
-    public Command setPercent(double left, double right) {
+    public void setPercent(double left, double right) {
         if (!enabled)
-            return Commands.none();
+            return;
 
-        return Commands.runOnce(() -> {
-            io.getLeft().setPercent(left);
-            io.getRight().setPercent(right);
-        });
+        io.getLeft().setPercent(left);
+        io.getRight().setPercent(right);
     }
 
     @Override
