@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
-import frc.lib.NinjasLib.statemachine.StateMachineBase;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeIO;
 import frc.robot.subsystems.intake.IntakeIOController;
@@ -24,7 +23,7 @@ public class RobotContainer {
         switch (Constants.kCurrentMode) {
             case REAL, SIM:
                 intake = new Intake(true, new IntakeIOController());
-                outtake = new Outtake(false, new OuttakeIOController());
+                outtake = new Outtake(true, new OuttakeIOController());
                 tank = new Tank(true, new TankIOController());
                 break;
 
@@ -37,9 +36,6 @@ public class RobotContainer {
                 });
                 break;
         }
-
-        RobotState.setInstance(new RobotState());
-        StateMachineBase.setInstance(new StateMachine());
 
         controller = new CommandPS5Controller(Constants.kControllerPort);
 
@@ -58,22 +54,23 @@ public class RobotContainer {
         return tank;
     }
 
+    private double r2 = 0;
     private void configureBindings() {
-        controller.R2().whileTrue(
-                Commands.startEnd(
-                        () -> StateMachine.getInstance().changeRobotState(States.INTAKE),
-                        () -> StateMachine.getInstance().changeRobotState(States.CLOSE)
-                )
-        );
-//        controller.cross().toggleOnFalse(
-//                Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.POWER_CELL_IN_SYSTEM))
-//        );
-//        controller.L2().onTrue(Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.PREPARE_SHOOT)));
-//        controller.circle().onTrue(Commands.runOnce(() -> StateMachine.getInstance().changeRobotState(States.CLOSE)));
+        controller.R2().whileTrue(intake.setPercent(() -> r2));
+        controller.R2().onFalse(intake.setPercent(() -> 0));
+
+        controller.L2().onTrue(outtake.setPercent(1));
+        controller.L2().onFalse(outtake.setPercent(0));
+
+        controller.circle().onTrue(Commands.runOnce(() -> {
+            outtake.setPercent(0);
+            intake.setPercent(() -> 0);
+        }));
     }
 
     public void periodic() {
         tank.setPercent(controller.getLeftY() - controller.getRightX(), controller.getLeftY() + controller.getRightX());
+        r2 = controller.getRawAxis(4);
     }
 
     public Command getAutonomousCommand() {

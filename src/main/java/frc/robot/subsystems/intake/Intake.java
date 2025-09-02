@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
+import java.util.function.DoubleSupplier;
+
 public class Intake extends SubsystemBase {
     private IntakeIO io;
     private final InputIOInputsAutoLogged inputs = new InputIOInputsAutoLogged();
@@ -25,11 +27,11 @@ public class Intake extends SubsystemBase {
             return new IntakeIO() {};
     }
 
-    public Command setPercent(double percent){
+    public Command setPercent(DoubleSupplier percent) {
         if (!enabled)
             return Commands.none();
         return Commands.runOnce(() -> {
-            io.setPercent(percent);
+            io.setPercent(percent.getAsDouble());
         });
     }
 

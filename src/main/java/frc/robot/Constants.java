@@ -83,7 +83,6 @@ public class Constants {
         kOuttakeControllerConstants.motorType = DCMotor.getKrakenX60(1);
     }
 
-
     public static final ControllerConstants kTankLeftControllerConstants = new ControllerConstants();
     static {
         /* Base */
