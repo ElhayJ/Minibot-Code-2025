@@ -56,7 +56,7 @@ public class RobotContainer {
 
     private double r2 = 0;
     private void configureBindings() {
-        controller.R2().whileTrue(intake.setPercent(() -> r2));
+        controller.R2().whileTrue(intake.r2Axis(controller));
         controller.R2().onFalse(intake.setPercent(() -> 0));
 
         controller.L2().onTrue(outtake.setPercent(1));
@@ -70,7 +70,6 @@ public class RobotContainer {
 
     public void periodic() {
         tank.setPercent(controller.getLeftY() - controller.getRightX(), controller.getLeftY() + controller.getRightX());
-        r2 = controller.getRawAxis(4);
     }
 
     public Command getAutonomousCommand() {

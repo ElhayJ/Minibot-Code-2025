@@ -63,7 +63,7 @@ public class Constants {
     static {
         /* Base */
         kIntakeControllerConstants.real.main.id = 20;
-        kIntakeControllerConstants.real.main.inverted = false;
+        kIntakeControllerConstants.real.main.inverted = true;
         kIntakeControllerConstants.real.currentLimit = 60;
         kIntakeControllerConstants.real.isBrakeMode = true;
 
